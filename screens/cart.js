@@ -5,19 +5,18 @@ import { useEffect, useState } from "react";
 const Cart = () => {
 
     const [response, setResponse] = useState([]);
-
-    useEffect(() => {
-        getCart();
-    }, [])
     const getCart = async () => {
         const res = await axios.post("http://10.0.2.2:3000/get/cart");
 
         if (res && res.data) {
 
             setResponse(res.data.cart);
-         
+  
         }
     }
+    useEffect(() => {
+        getCart();
+    }, [])
     return (
         <View style={{ paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 40, backgroundColor: "white" }}>
             <View style={{ height: "100%", width: "100%", paddingLeft: 10, paddingRight: 10 }}>

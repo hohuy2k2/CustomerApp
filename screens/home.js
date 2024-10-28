@@ -13,7 +13,7 @@ const Home = ({ navigation }) => {
      
         if (res && res.data) {
             setResponse(res.data._class);
-         //   setClass(res.data._class);
+      
         }
     }
     useEffect(() => {
@@ -36,7 +36,7 @@ const Home = ({ navigation }) => {
           }
     }
     const addClassToCart = async (id, email) => {
-        if(emailValidate(email))
+        if(emailValidate(email) && id)
         {
         const res = await axios.post("http://10.0.2.2:3000/add/cart", { id, email })
         if (res && res.data.mess) {
@@ -47,7 +47,7 @@ const Home = ({ navigation }) => {
         }
     }
     else{
-        Alert.alert("Invalid email!!!")
+        Alert.alert("Invalid email or something wrong")
     }
     }
     const emailValidate = (e) => {
@@ -114,7 +114,7 @@ const Home = ({ navigation }) => {
                            </>
                              )}
                                {class_.length > 0  ? (class_.map((class_) => (
-                                  <View key={response._id} style={{  justifyContent: "space-between", paddingLeft: 10, paddingRight: 10,borderColor:"black",borderWidth:2 }}>
+                                  <View key={class_._id} style={{  justifyContent: "space-between", paddingLeft: 10, paddingRight: 10,borderColor:"black",borderWidth:2 }}>
                                   <Text style={{ fontSize: 15,  paddingTop: 10 }}>Capacity : {class_.capacity}</Text>
                                   <Text style={{ fontSize: 15, paddingTop: 10 }}>Date : {class_.date}</Text>
                                   <Text style={{ fontSize: 15,  paddingTop: 10 }}>Duration : {class_.duration}</Text>
@@ -123,7 +123,7 @@ const Home = ({ navigation }) => {
                                   <Text style={{ fontSize: 15,  paddingTop: 10 }}>Type : {class_.type}</Text>
                                   <Text style={{ fontSize: 15,  paddingTop: 10 }}>Description : {class_.description}</Text>
                                   <View>
-                                  <TouchableOpacity onPress={()=>addClassToCart(response._id,email)}
+                                  <TouchableOpacity onPress={()=>addClassToCart(class_._id,email)}
                                   style={{paddingTop:10,paddingBottom:10,borderColor:"#336B8B",borderWidth:1,backgroundColor:"#336B8B",alignItems:'center',borderRadius:20}}>
                                     <Text style={{color:"white"}}>Add To Cart</Text>
                                     </TouchableOpacity>
